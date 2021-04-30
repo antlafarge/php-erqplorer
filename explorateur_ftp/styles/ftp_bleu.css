@@ -1,0 +1,188 @@
+/* CSS Document */
+/* Général */
+body
+{
+	padding-bottom:20px;
+	background-color:#003060;
+}
+h1
+{
+	text-align:center;
+	color:#FFFFFF;
+}
+form
+{
+	display:inline;
+}
+img
+{
+	border:0px;
+}
+.erreur {
+	color:#FF0000;
+	text-align:center;
+	font-weight:bold;
+}
+/* FTP */
+#ftp
+{
+	width:98%;
+	margin:auto;
+}
+/* Barre d'adresse */
+#adresse_barre
+{
+	padding:1px 0px 2px 0px;
+	background-color:#004080;
+	border:1px solid;
+	border-color:#000000;
+	text-align:center;
+	font-weight:bold;
+	color:#A0A0FF;
+}
+#adresse_text
+{
+	width:80%;
+	background-color:#003060;
+	border:1px solid;
+	border-color:#000000;
+	color:#A0A0FF;
+}
+#adresse_submit
+{
+	background-color:#003060;
+	border:1px solid;
+	border-color:#000000;
+	color:#A0A0FF;
+	font-weight:bold;
+}
+#adresse_submit:hover
+{
+	color:#FFFFFF;
+}
+
+/* Arborescence */
+.fenetre
+{
+	width:100%;
+}
+.fenetre .titre
+{
+	background-color:#003060;
+	border:1px solid;
+	border-color:#000000;
+	color:#FFFFFF;
+}
+.fenetre .sous_titre
+{
+	background-color:#003060;
+	border:1px solid;
+	border-color:#000000;
+	color:#A0A0FF;
+}
+/* Dossiers */
+#arborescence_dossiers
+{
+	width:20%;
+	background-color:#004080;
+	border:1px solid;
+	border-color:#000000;
+}
+#arborescence_dossiers a
+{
+	text-decoration:none;
+	color:#A0A0FF;
+}
+#arborescence_dossiers a:hover
+{
+	text-decoration:underline;
+	color:#FFFFFF;
+}
+#arborescence_dossiers .dossier_courant
+{
+	font-weight:bold;
+	color:#FFFFFF;
+}
+/* Fichiers */
+#arborescence_fichiers
+{
+	width:auto;
+	background-color:#004080;
+	border:1px solid;
+	border-color:#000000;
+}
+
+.fichier td
+{
+	border:1px solid;
+	border-color:#003060;
+	color:#A0A0FF;
+}
+.fichier:hover td
+{
+	background-color:#003060;
+	border:1px solid;
+	border-color:#000000;
+	color:#FFFFFF;
+}
+.fichier a
+{
+	color:#A0A0FF;
+	text-decoration:none;
+}
+.fichier:hover a
+{
+	color:#FFFFFF;
+}
+.fichier a:hover
+{
+	text-decoration:underline;
+}
+/* Crédits */
+#credits
+{
+	padding:2px 0px 2px 0px;
+	background-color:#004080;
+	border:1px solid;
+	border-color:#000000;
+	color:#A0A0FF;
+	text-align:center;
+	font-size:small;
+	font-weight:bold;
+}
+#credits a
+{
+	text-decoration:none;
+	color:#A0A0FF;
+}
+#credits a:hover
+{
+	text-decoration:underline;
+}
+/* Choix du design */
+#design_liste_deroulante
+{
+	background-color:#004080;
+	border:1px solid;
+	border-color:#000000;
+	color:#A0A0FF;
+	font-weight:bold;
+}
+#design_liste_deroulante:hover
+{
+	background-color:#003060;
+	color:#FFFFFF;
+}
+#design_submit
+{
+	background-color:#004080;
+	border:1px solid;
+	border-color:#000000;
+	color:#A0A0FF;
+	font-weight:bold;
+}
+#design_submit:hover
+{
+	background-color:#003060;
+	color:#FFFFFF;
+}
