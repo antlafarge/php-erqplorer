@@ -1,0 +1,127 @@
+/* CSS Document */
+
+/* Général */
+body
+{
+	margin-top:20px;
+	margin-bottom:20px;
+	background-color:#004080;
+	text-align:center;
+}
+h1
+{
+	color:#FFFFFF;
+}
+a
+{
+	background-color:#FFFFFF;
+	text-decoration:none;
+	color:#000000;
+}
+a:hover
+{
+	background-color:#FFFFFF;
+	text-decoration:underline;
+	color:#004080;
+}
+
+/* FTP */
+#ftp
+{
+	width:90%;
+	margin:auto;
+}
+/* Barre d'adresse */
+#adresse_barre
+{
+	background-color:#FFFFFF;
+	border:2px solid black;
+	text-align:center;
+	font-weight:bold;
+}
+#adresse_formulaire
+{
+	display:inline;
+}
+#adresse_text
+{
+	width:82%;
+	background-color:#004080;
+	border:1px solid black;
+	color:#FFFFFF;
+}
+#adresse_submit
+{
+	background-color:#FFFFFF;
+	border:1px solid black;
+	border-color:#004080;
+	color:#004080;
+}
+
+/* Arborescence */
+#arborescence_dossiers
+{
+	width:30%;
+	background-color:#FFFFFF;
+	border:2px solid black;
+}
+#arborescence_fichiers
+{
+	width:auto;
+	padding:0px;
+	background-color:#FFFFFF;
+	border:2px solid black;
+}
+.fenetre
+{
+	width:100%;
+}
+.fenetre td
+{
+	text-align:left;
+}
+.titre
+{
+	background-color:#004080;
+	border:1px solid black;
+	font-weight:bold;
+	color:#FFFFFF;
+}
+.sous_titre
+{
+	width:10%;
+	border:1px solid;
+	border-color:#004080;
+}
+.dossier
+{
+	padding-left:20px;
+	background-image:url(../explorateur_ftp/icones/repertoire.png);
+	background-repeat:no-repeat;
+}
+#dossier_courant
+{
+	padding-left:15px;
+	background-image:url(../explorateur_ftp/icones/repertoire_ouvert.png);
+	background-repeat:no-repeat;
+	font-weight:bold;
+	color:#004080;
+}
+#credits
+{
+	background-color:#004080;
+	border:1px solid black;
+	text-align:center;
+	font-size:small;
+	font-weight:bold;
+}
+#credits a
+{
+	background-color:#004080;
+	text-decoration:none;
+	color:#000000;
+}
+#credits a:hover
+{
+	text-decoration:underline;
+}
