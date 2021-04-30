@@ -1,0 +1,95 @@
+/* CSS Document */
+/* positionnement */
+#adresse
+{
+	background-color:#004080;
+	color:#80C0FF;
+}
+#dossiers_cadre
+{
+	background-color:#004080;
+}
+#fichiers_cadre
+{
+	background-color:#004080;
+}
+#credits
+{
+	background-color:#004080;
+	color:#80C0FF;
+}
+
+/* Style */
+body
+{
+	background-color:#003060;
+}
+#adresse input
+{
+	background-color:#003060;
+	color:#80C0FF;
+}
+.titre
+{
+	background-color:#003060;
+}
+#fichiers_type
+{
+	background-color:#003060;
+	color:#80C0FF;
+}
+.fichiers_total_taille
+{
+	background-color:#003060;
+	color:#80C0FF;
+}
+.fichiers_total_taille_2
+{
+	background-color:#003060;
+	color:#80C0FF;
+}
+.sous_titre
+{
+	background-color:#003060;
+	color:#80C0FF;
+}
+a
+{
+	color:#80C0FF;
+}
+
+.fichier td
+{
+	border-color:#003060;
+	color:#80C0FF;
+}
+.fichier:hover td
+{
+	background-color:#003060;
+}
+.fichier a
+{
+	color:#80C0FF;
+}
+#credits a
+{
+	color:#80C0FF;
+}
+#design input
+{
+	background-color:#003060;
+	color:#80C0FF;
+}
+#design input:hover
+{
+	background-color:#004080;
+}
+#design select
+{
+	background-color:#003060;
+	color:#80C0FF;
+}
+#design select:hover
+{
+	background-color:#004080;
+}
