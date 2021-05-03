@@ -4,7 +4,7 @@
 $hideStartingWithDotDirectories = true;
 $hideStartingWithDotFiles = true;
 $exactFileSize = false;
-$dateFormat = 'y/m/d H:i:s';
+$dateFormat = 'Y/m/d H:i:s';
 
 error_reporting(E_ALL ^ E_NOTICE);
 
