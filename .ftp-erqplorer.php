@@ -330,7 +330,7 @@ function listFiles($path)
 	global $dateFormat;
 	global $fileExtToIcon;
 
-	$type = array(' B','KB','MB','GB');
+	$type = array('&nbsp;B','KB','MB','GB');
 	$typeIndex = 0;
 	$totalFileSize = 0;
 
