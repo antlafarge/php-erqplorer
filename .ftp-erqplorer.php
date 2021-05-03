@@ -225,6 +225,17 @@ function getUrl()
 	return $url;
 }
 
+function getTitle()
+{
+	$title = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	if (mb_substr($title, -1) === '/')
+	{
+		$title = mb_substr($title, 0, -1);
+	}
+	$title = str_replace('/', ' / ', $title);
+	return $title;
+}
+
 function getFiles($path, $showDirs = true, $showFiles = true, $sort = false)
 {
 	global $hideStartingWithDotDirectories;
@@ -278,7 +289,7 @@ function listDirectories($path, $uri, $indentCount = 1)
 {
 	$currentPath = $_SERVER[DOCUMENT_ROOT].urldecode($_SERVER[REQUEST_URI]);
 
-	if (substr($currentPath, -1) === '/')
+	if (mb_substr($currentPath, -1) === '/')
 	{
 		$currentPath = mb_substr($currentPath, 0, -1);
 	}
@@ -366,7 +377,7 @@ function listFiles($path)
 		$bi = 'file-earmark';
 		if (($extPos = strrpos($file, '.')) !== false)
 		{
-			$ext = strtoupper(substr($file, $extPos + 1));
+			$ext = strtoupper(mb_substr($file, $extPos + 1));
 			if (($biTmp = $fileExtToIcon[$ext]) != null)
 			{
 				$bi = $biTmp;
@@ -474,7 +485,7 @@ function displayBreadcrumbs($path)
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-	<title><?=$_SERVER["HTTP_HOST"]?></title>
+	<title><?=getTitle()?></title>
 	<style>
 		body { font-family:consolas; }
 		h1 { text-align:center; margin-top:1rem; }
