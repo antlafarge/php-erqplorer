@@ -16,4 +16,11 @@ Put these 2 files in the FTP root directory :
 - `.ftp-erqplorer.php`
 - `.htaccess`
 
-It works!
+## Installation in a sub-directory
+
+If you don't want to install the script in the root directory of your website, put the script in the sub-directory you want.  
+You will serve the sub-directories and the files of this directory.  
+To do that, you have to modify the `.htaccess` to target the new path to the `.ftp-erqplorer.php` script file :
+
+    ErrorDocument 403 /path/to/.ftp-erqplorer.php
+    ErrorDocument 404 /path/to/.ftp-erqplorer.php

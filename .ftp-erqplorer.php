@@ -8,7 +8,7 @@ $dateFormat = 'Y/m/d H:i:s';
 
 error_reporting(E_ALL ^ E_NOTICE);
 
-if (is_dir($_SERVER[DOCUMENT_ROOT].urldecode($_SERVER[REQUEST_URI])))
+if (is_dir(getPageDir()))
 {
 	header("Status: 200 OK");
 }
@@ -18,7 +18,7 @@ else
 	
 	echo '
 	<p>Error 404 Not Found</p>
-	<p><a href="'.getHost().'">Return to home page</a></p>
+	<p><a href="'.getRootUrl().'">Return to home page</a></p>
 	';
 
 	return;
@@ -204,36 +204,69 @@ foreach ($zipExt as &$key)
 	$fileExtToIcon[$key] = &$zipClass;
 }
 
-function getHost()
+function getProtocol()
 {
 	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
 	{
-		$url = "https://";
+		return "https://";
 	}
 	else
 	{
-		$url = "http://";
+		return "http://";
 	}
-	$url .= $_SERVER['HTTP_HOST'];
-	return $url;
 }
 
-function getUrl()
+function getRequestUri()
 {
-	$url = getHost();
-	$url .= $_SERVER['REQUEST_URI'];
-	return $url;
+	return mb_substr(urldecode($_SERVER['REQUEST_URI']), 0, -1);
 }
 
-function getTitle()
+function getHost()
 {
-	$title = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-	if (mb_substr($title, -1) === '/')
-	{
-		$title = mb_substr($title, 0, -1);
-	}
-	$title = str_replace('/', ' / ', $title);
-	return $title;
+	return $_SERVER['HTTP_HOST'];
+}
+
+function getRelativePath()
+{
+	$start = strlen(getRoot());
+	return mb_substr(getRequestUri(), $start);
+}
+
+function getRoot()
+{
+	$start = 0;
+	$end = strrpos($_SERVER['SCRIPT_NAME'], '/');
+	return mb_substr($_SERVER['SCRIPT_NAME'], $start, $end);
+}
+
+function getRootDir()
+{
+	return $_SERVER['DOCUMENT_ROOT'].getRoot();
+}
+
+function getRootUrl()
+{
+	return getProtocol().getHost().getRoot();
+}
+
+function getPageUrl()
+{
+	return getProtocol().getHost().getRequestUri();
+}
+
+function getPageDir()
+{
+	return getRootDir().getRelativePath();
+}
+
+function getPageTitle()
+{
+	return getHtmlTitle().str_replace('/', ' / ', getRelativePath());
+}
+
+function getHtmlTitle()
+{
+	return getHost().getRoot();
 }
 
 function getFiles($path, $showDirs = true, $showFiles = true, $sort = false)
@@ -287,12 +320,7 @@ function getFiles($path, $showDirs = true, $showFiles = true, $sort = false)
 
 function listDirectories($path, $uri, $indentCount = 1)
 {
-	$currentPath = $_SERVER[DOCUMENT_ROOT].urldecode($_SERVER[REQUEST_URI]);
-
-	if (mb_substr($currentPath, -1) === '/')
-	{
-		$currentPath = mb_substr($currentPath, 0, -1);
-	}
+	$currentPath = getPageDir();
 
 	$slashes = str_repeat('&nbsp;', 2 * $indentCount);
 
@@ -372,7 +400,7 @@ function listFiles($path)
 
 	foreach ($files as $file)
 	{
-		$filepath = "$path$file";
+		$filepath = "$path/$file";
 		
 		$bi = 'file-earmark';
 		if (($extPos = strrpos($file, '.')) !== false)
@@ -411,7 +439,7 @@ function listFiles($path)
 
 		echo '
 		<tr>
-			<td><a href="'.$fileUri.'" target="_blank">'.$icone.' '.utf8_encode($file).'</a></td>
+			<td><a href="'.$fileUri.'">'.$icone.' '.utf8_encode($file).'</a></td>
 			<td class="text-end">'.$fileSize.' '.$type[$typeIndex].'</td>
 			<td class="text-center">'.$date.'</td>
 		</tr>
@@ -443,8 +471,9 @@ function displayBreadcrumb($title, $uri)
 	echo '<li class="breadcrumb-item active" aria-current="page"><a href="'.$uri.'">'.$title.'</a></li>';
 }
 
-function displayBreadcrumbs($path)
+function displayBreadcrumbs($home, $path)
 {
+
 	$dirs = split('/', $path);
 
 	echo '
@@ -452,16 +481,16 @@ function displayBreadcrumbs($path)
 		<ol class="breadcrumb">
 	';
 
-	$uri = '/';
+	$uri = getRootUrl();
 
-	displayBreadcrumb(getHost(), $uri);
+	displayBreadcrumb($home, $uri);
 
-	foreach ($dirs as &$value)
+	foreach ($dirs as &$dir)
 	{
-		if ($value != null)
+		if ($dir != null)
 		{
-			$uri .= "$value/";
-			displayBreadcrumb($value, $uri);
+			$uri .= "/$dir";
+			displayBreadcrumb($dir, $uri);
 		}
 	}
 	
@@ -485,7 +514,7 @@ function displayBreadcrumbs($path)
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-	<title><?=getTitle()?></title>
+	<title><?=getPageTitle()?></title>
 	<style>
 		body { font-family:consolas; }
 		h1 { text-align:center; margin-top:1rem; }
@@ -512,8 +541,8 @@ function displayBreadcrumbs($path)
 <div class="row">
 		<div class="col">
 			<h1>
-				<a href="<?=getHost()?>">
-					<?=$_SERVER["HTTP_HOST"]?>
+				<a href="<?=getRootUrl()?>">
+					<?=getHtmlTitle()?>
 				</a>
 			</h1>
 		</div>
@@ -521,7 +550,7 @@ function displayBreadcrumbs($path)
 
 	<div class="row justify-content-md-center">
 		<div class="col-10">
-			<?php displayBreadcrumbs(urldecode($_SERVER[REQUEST_URI])); ?>
+			<?php displayBreadcrumbs(getHtmlTitle(), getRelativePath()); ?>
 		</div>
 	</div>
 
@@ -533,16 +562,16 @@ function displayBreadcrumbs($path)
 						<table class="table table-sm table-borderless table-hover ftp-sub-table">
 							<tr>
 								<td>
-									<a href="/">
-										<i class="bi bi-house"></i> <?=getHost()?>
+									<a href="<?=getRootUrl()?>">
+										<i class="bi bi-house"></i> <?=getHtmlTitle()?>
 									</a>
 								</td>
 							</tr>
-							<?php listDirectories("$_SERVER[DOCUMENT_ROOT]", getHost()); ?>
+							<?php listDirectories(getRootDir(), getRootUrl()); ?>
 						</table>
 					</td>
 					<td class="ftp-cell ftp-cell-files">
-						<?php listFiles($_SERVER[DOCUMENT_ROOT].urldecode($_SERVER[REQUEST_URI])); ?>
+						<?php listFiles(getPageDir()); ?>
 					</td>
 				</tr>
 			</table>
