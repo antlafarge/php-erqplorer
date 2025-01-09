@@ -1,6 +1,6 @@
 # PHP-ErqPlorer
 
-This is a files explorer PHP script created for [free.fr](https://www.free.fr) perso pages.
+This is a files explorer PHP script created for [free.fr](https://www.free.fr) perso pages (ftpperso.free.fr).
 
 ## Configuration
 
