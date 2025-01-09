@@ -5,10 +5,10 @@ This is a files explorer PHP script created for [free.fr](https://www.free.fr) p
 ## Configuration
 
 Open `.erqplorer.php` and modify these config variables :
-- `hideStartingWithDotDirectories` : Hide directories starting with a dot (`.git`)
-- `hideStartingWithDotFiles` : Hide files starting with a dot (`.gitignore`)
+- `hideDotStartingDirs` : Hide directories starting with a dot (`.git`)
+- `hideDotStartingFiles` : Hide files starting with a dot (`.gitignore`)
 - `exactFileSize` : Don't round file size (`1 KB` => `1337 B`)
-- `dateFormat` : Change the date format
+- `dateFormat` : Change the default date format (`Y/m/d H:i:s`)
 
 ## Installation
 
