@@ -247,6 +247,14 @@ function getFiles($path, $showDirs = true, $showFiles = true, $sort = false)
 	return $files;
 }
 
+function str_starts_with($haystack, $needle) {
+    if ($needle === '') {
+        return true;
+    }
+	
+    return strncmp($haystack, $needle, strlen($needle)) === 0;
+}
+
 function listDirectories($path, $uri, $indentCount = 1)
 {
 	global $pageDir;
