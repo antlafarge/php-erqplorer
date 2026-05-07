@@ -334,7 +334,7 @@ function listFiles($path)
 		$bi = 'file-earmark';
 		if (($extPos = mb_strrpos($file, '.', 0, 'UTF-8')) !== false) {
 			$ext = mb_strtoupper(mb_substr($file, $extPos + 1, NULL, 'UTF-8'), 'UTF-8');
-			$biTmp = $fileExtToIcon[$ext] || null;
+			$biTmp = $fileExtToIcon[$ext];
 			if ($biTmp != null) {
 				$bi = $biTmp;
 			}
@@ -570,7 +570,7 @@ function displayBreadcrumbs($home, $path)
 
 			<div class="row justify-content-md-center footer">
 				<div class="col text-center">
-					<a href="https://github.com/antlafarge/php-erqplorer" target="_blank">PHP-ErqPlorer v0.6.3</a>
+					<a href="https://github.com/antlafarge/php-erqplorer" target="_blank">PHP-ErqPlorer v0.6.4</a>
 				</div>
 			</div>
 
