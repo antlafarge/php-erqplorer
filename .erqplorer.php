@@ -570,7 +570,7 @@ function displayBreadcrumbs($home, $path)
 
 			<div class="row justify-content-md-center footer">
 				<div class="col text-center">
-					<a href="https://github.com/antlafarge/php-erqplorer" target="_blank">PHP-ErqPlorer v0.6.4</a>
+					<a href="https://github.com/antlafarge/php-erqplorer" target="_blank">PHP-ErqPlorer v0.6.5</a>
 				</div>
 			</div>
 
