@@ -1,27 +1,44 @@
 <?php
 
+if (!function_exists('str_starts_with')) {
+	// This function was introduced in PHP 8
+	function str_starts_with($haystack, $needle) {
+		if ($needle === '') {
+			return true;
+		}
+
+		return strncmp($haystack, $needle, strlen($needle)) === 0;
+	}
+}
+
 // Config
-$hideDotStartingDirs = isset($_ENV['HIDE_DOT_STARTING_DIRS'])
+$hideDirs = !empty($_ENV['HIDE_DIRS'])
+	? array_map('trim', explode('|', $_ENV['HIDE_DIRS']))
+	: null;
+$hideFiles = !empty($_ENV['HIDE_FILES'])
+	? array_map('trim', explode('|', $_ENV['HIDE_FILES']))
+	: null;
+$hideDotStartingDirs = !empty($_ENV['HIDE_DOT_STARTING_DIRS'])
 	? preg_match('/^\s*TRUE\s*$/i', $_ENV['HIDE_DOT_STARTING_DIRS']) == 1
 	: true;
-$hideDotStartingFiles = isset($_ENV['HIDE_DOT_STARTING_FILES'])
+$hideDotStartingFiles = !empty($_ENV['HIDE_DOT_STARTING_FILES'])
 	? preg_match('/^\s*TRUE\s*$/i', $_ENV['HIDE_DOT_STARTING_FILES']) == 1
 	: true;
-$exactFileSize = isset($_ENV['EXACT_FILE_SIZE'])
+$exactFileSize = !empty($_ENV['EXACT_FILE_SIZE'])
 	? preg_match('/^\s*TRUE\s*$/i', $_ENV['EXACT_FILE_SIZE']) == 1
 	: false;
-$dateFormat = isset($_ENV['DATE_FORMAT'])
+$dateFormat = !empty($_ENV['DATE_FORMAT'])
 	? $_ENV['DATE_FORMAT']
 	: 'Y/m/d H:i:s';
 
 // globals
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http';
+$protocol = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http';
 $host = trim(urldecode($_SERVER['HTTP_HOST']), ' ./');
 $scriptName = urldecode($_SERVER['SCRIPT_NAME']);
 $root = trim(mb_substr($scriptName, 0, mb_strrpos($scriptName, '/', 0, 'UTF-8'), 'UTF-8'), ' ./');
 $rootDir = $_SERVER['DOCUMENT_ROOT'] . ($root ? '/' . $root : '');
 $rootUrl = "$protocol://$host" . ($root ? '/' . $root : '');
-$requestUri = isset($_SERVER['REQUEST_URI'])
+$requestUri = !empty($_SERVER['REQUEST_URI'])
 	? trim(preg_replace('/^\s*([^?]+)?(\?[^#]+)?(#.+)?\s*$/', '$1', urldecode($_SERVER['REQUEST_URI'])), ' ./')
 	: '';
 $relativePath = $root && str_starts_with($requestUri, $root)
@@ -209,6 +226,8 @@ foreach ($zipExt as &$key) {
 
 function getFiles($path, $showDirs = true, $showFiles = true, $sort = false)
 {
+	global $hideDirs;
+	global $hileFiles;
 	global $hideDotStartingDirs;
 	global $hideDotStartingFiles;
 
@@ -226,11 +245,11 @@ function getFiles($path, $showDirs = true, $showFiles = true, $sort = false)
 		$filepath = "$path/$file";
 
 		if (is_dir($filepath)) {
-			if (!$showDirs || ($hideDotStartingDirs && $file[0] === '.')) {
+			if (!$showDirs || ($hideDotStartingDirs && $file[0] === '.') || ($hideDirs && in_array($file, $hideDirs, true))) {
 				continue;
 			}
 		} else {
-			if (!$showFiles || ($hideDotStartingFiles && $file[0] === '.')) {
+			if (!$showFiles || ($hideDotStartingFiles && $file[0] === '.') || ($hileFiles && in_array($file, $hileFiles, true))) {
 				continue;
 			}
 		}
@@ -245,14 +264,6 @@ function getFiles($path, $showDirs = true, $showFiles = true, $sort = false)
 	}
 
 	return $files;
-}
-
-function str_starts_with($haystack, $needle) {
-    if ($needle === '') {
-        return true;
-    }
-	
-    return strncmp($haystack, $needle, strlen($needle)) === 0;
 }
 
 function listDirectories($path, $uri, $indentCount = 1)
@@ -334,7 +345,8 @@ function listFiles($path)
 		$bi = 'file-earmark';
 		if (($extPos = mb_strrpos($file, '.', 0, 'UTF-8')) !== false) {
 			$ext = mb_strtoupper(mb_substr($file, $extPos + 1, NULL, 'UTF-8'), 'UTF-8');
-			$biTmp = $fileExtToIcon[$ext];
+			$biTmp = $fileExtToIcon[$ext] ?? null;
+
 			if ($biTmp != null) {
 				$bi = $biTmp;
 			}
@@ -570,7 +582,7 @@ function displayBreadcrumbs($home, $path)
 
 			<div class="row justify-content-md-center footer">
 				<div class="col text-center">
-					<a href="https://github.com/antlafarge/php-erqplorer" target="_blank">PHP-ErqPlorer v0.6.5</a>
+					<a href="https://github.com/antlafarge/php-erqplorer" target="_blank">PHP-ErqPlorer v0.7.0</a>
 				</div>
 			</div>
 

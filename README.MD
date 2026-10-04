@@ -5,6 +5,8 @@ This is a files explorer PHP script created for [free.fr](https://www.free.fr) p
 ## Configuration
 
 Open `.erqplorer.php` and modify these config variables :
+- `hideDirs` : Hide directories (`@eaDir|#recycle`)
+- `hideFiles` : Hide directories (`.gitignore|.htaccess`)
 - `hideDotStartingDirs` : Hide directories starting with a dot (`.git`)
 - `hideDotStartingFiles` : Hide files starting with a dot (`.gitignore`)
 - `exactFileSize` : Don't round file size (`1 KB` => `1337 B`)

